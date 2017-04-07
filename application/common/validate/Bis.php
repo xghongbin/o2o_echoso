@@ -66,8 +66,6 @@ class Bis extends Validate
             'city_id',
             'se_city_id',
             'licence_logo',
-            //'description',
-            //'content',
             'bank_info',
             'bank_name',
             'bank_user',
@@ -90,6 +88,13 @@ class Bis extends Validate
         'status'=>[
             'id',
             'status',
+        ],
+        'chuekUserName'=>[
+            'name',
+            'email',
+            'bank_info',
+            'bank_name',
+            'bank_user',
         ],
     ];
 }

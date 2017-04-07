@@ -19,19 +19,30 @@
 				</tr>
 			</thead>
 			<tbody>
-				
-				<tr class="text-c">
-					<td></td>
-					<td></td>
-					<td class="text-c"></td>
-					<td class="text-c"></td>
-					<td></td>
-					<td class="td-status"><a href="" title="点击修改状态"></a></td>
-					<td class="td-manage"> <a style="text-decoration:none" class="ml-5" onClick="" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-				</tr>
-				
+
+            {volist name="bis" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td class="text-c">{$vo.faren}</td>
+                <td class="text-c">{$vo.faren_tel}</td>
+                <td>{$vo.create_time}</td>
+                <td class="td-status">
+                    <a href="{:url('Bis/status',['status'=>$vo.status==1?0:1,'id'=>$vo.id])}" title="点击修改状态">
+                        {$vo.status|status_defintion}
+                    </a>
+                </td>
+                <td class="td-manage">
+                    <a style="text-decoration:none" class="ml-5" onClick="o2o_del('{:url('Bis/status',['id'=>$vo.id,'status'=>-1])}')" href="javascript:;" title="删除">
+                        <i class="Hui-iconfont">&#xe6e2;</i>
+                    </a>
+                </td>
+            </tr>
+            {/volist}
+
 			</tbody>
 		</table>
+        {:pagination($bis)}
 	</div>
 </div>
 <!--包含头部文件-->

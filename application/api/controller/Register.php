@@ -46,16 +46,67 @@ class Register extends Controller{
         }
 
         $data = input('post.');
-        $bisId = model('Bis')->getBisUserIsHave($data);
-        $haveUsername = model('BisAccount')->getBisUserNameIsUse($data,$bisId);
 
-        if($bisId > 0 && !empty($bisId)){
-            if($haveUsername){
-                return show(0,'success',"此店铺已存在 '".$data['username']."' 管理员");
+        //  ”店铺申请入驻“ 字段验证不能为空
+        foreach ($data as $key=>$value){
+            switch($key){
+                case 'faren':
+                    $key = '法人';
+                    break;
+                case 'username':
+                    $key = '商户名称';
+                    break;
+                case 'email':
+                    $key = '邮箱';
+                    break;
+                case 'bank_user':
+                    $key = '开户行姓名';
+                    break;
+                case 'bank_name':
+                    $key = '开户行名称';
+                    break;
+                case 'bank_info':
+                    $key = '银行账号';
+                    break;
+                case 'name':
+                    $key = '商户名称';
+                    break;
             }
-                return show(0,'success',"此店铺已存在");
+            if($value == ''){
+                return show(0,'error',$key."不能为空");
+            }
         }
+
+        $checkDate = validate('Bis');
+        $res = $checkDate->scene('chuekUserName')->check($data);
+
+        //  先验证 Bis表 的基本信息字段是否正确
+        if($checkDate->scene('chuekUserName')->check($data)){
+            //  再进行 bis_account表字段的信息验证
+            $checkUsername = validate('BisAccount');
+            if($checkUsername->scene('chuekUserName')->check($data)){
+
+                //  最后再进行返回判断数据给JS
+                $bisId = model('Bis')->getBisUserIsHave($data);
+
+                $haveUsername = model('BisAccount')->getBisUserNameIsUse($data,$bisId);
+
+                if($bisId > 0 && !empty($bisId)){
+                    if($haveUsername){
+                        return show(0,'error',"此店铺已存在 '".$data['username']."' 管理员");
+                    }
+                    return show(0,'error',"此店铺已存在");
+                }
                 return show(1,'success','可以使用');
+
+            }else{
+                $this->error($checkUsername->getError());
+            }
+        }else{
+            $this->error($checkDate->getError());
+        }
+        
+
     }
 
 }

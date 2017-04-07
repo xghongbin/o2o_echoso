@@ -13,13 +13,16 @@ class Bis extends Controller
 
     public function index()
     {
-        //  get[parent_Id]并传递获取子栏目数据
-        //$parentId = input('get.parent_id',0,'intval');
-
-        //$category = $this->obj->getFirstCategorys($parentId);
+        // 获取传送的 status=1
+        if(!request()->isGet())
+        {
+            $this->error('非法操作');
+        }
+        $status = input('get.status');
+        $bis = model('Bis')->getBisStatusList($status);
 
         return $this->fetch('',[
-            //'category'=>$category,
+            'bis'=>$bis,
         ]);
     }
 
@@ -38,9 +41,20 @@ class Bis extends Controller
     /*
      * 删除的商户
      * */
-    public function delapply()
+    public function dellist()
     {
-        return $this->fetch();
+        // 获取传送的 status=-1
+
+        if(!request()->isGet())
+        {
+            $this->error('非法操作');
+        }
+        $status = input('get.status');
+        $bis = model('Bis')->getBisStatusList($status);
+
+        return $this->fetch('',[
+            'bis'=>$bis,
+        ]);
     }
 
     /*

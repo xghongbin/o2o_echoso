@@ -32,13 +32,17 @@
 		<div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">商家logo：</label>
               <div class="formControls col-xs-8 col-sm-9">
+                  {if $bisData.logo neq ''}
                 <img id="upload_org_code_img" src="{$bisData.logo}" width="150" height="150">
+                  {/if}
               </div>
         </div>
         <div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">营业执照：</label>
               <div class="formControls col-xs-8 col-sm-9">
+                  {if $bisData.licence_logo neq ''}
                 <img  id="upload_org_code_img_other" src="{$bisData.licence_logo}" width="150" height="150">
+                  {/if}
               </div>
         </div>
         
@@ -118,7 +122,9 @@
 			<label class="form-label col-xs-4 col-sm-2">商户地址：</label>
 			<div class="formControls col-xs-8 col-sm-3">
 				<input type="text" class="input-text" value="{$locationData.address}" placeholder=""   name="address">
-                <img style="margin:20px" width="280" height="140" src="{:url('Bis/map',['id'=>$bisId])}">
+                {if $locationData.address neq ''}
+                    <img style="margin:20px" width="280" height="140" src="{:url('Bis/map',['id'=>$bisId])}">
+                {/if}
 			</div>
 		</div>
 		<div class="row cl">

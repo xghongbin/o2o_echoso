@@ -32,7 +32,7 @@ class Bis extends BaseModel
             'bank_user'=>$data['bank_user'],
             'bank_name'=>$data['bank_name'],
             'bank_info'=>$data['bank_info'],
-            'name'=>$data['bisname']
+            'name'=>$data['name']
         ];
         $res = $this->where($result)->value('id');
        return $res;
