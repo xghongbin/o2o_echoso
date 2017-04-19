@@ -27,6 +27,9 @@ function status_defintion($date)
             case -1:
                 $status = "<span class='btn btn-warning radius'>删除</span>";
                 break;
+            case 2:
+                $status = "<span class='btn btn-danger radius'>不通过</span>";
+                break;
             default:
                 $status = "<span class='btn btn-danger radius'>未定义错误</span>";
         }
@@ -38,8 +41,8 @@ function status_defintion($date)
 /*
  *  封装CURL，https请求  GET/POST
  *  @param  string 请求的地址
- *  @param  array  POST是需要想服务器提交数据的
- *  @param  string 需要返回的是数组还是json
+ *  @param  array  POST是需要向服务器提交数据的
+ *  @param  string 需要返回的是数组[0]还是json[1] 默认为返回json
  *  例子：$data = array("filename"=>"@img/ecshso.png");
  * */
 function http_request($url,$data = null,$isArray=0)
@@ -129,6 +132,9 @@ function getSeCityName($path)
 
 }
 
+/*
+ * 获取设置的二级城市名称
+ * */
 function getSetPathName($path,$setName)
 {
     if(empty($path))

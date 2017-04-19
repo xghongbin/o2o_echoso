@@ -18,4 +18,8 @@ class BisAccount extends BaseModel
 
     }
 
+    public function updateByIdInfo($data,$id){
+        return $this->allowField(true)->save($_POST,$data,['id'=>$id]);
+    }
+
 }

@@ -27,8 +27,8 @@ class Register extends Controller{
         $data = input('post.');
 
         //  商户地址通过Map.php获取经纬度
-        $lnglat = \Map::getLngLat($data['address']);
-        $lnglat = json_decode($lnglat,true);
+        $lnglat = \Map::getLngLat($data['address'],0);
+
         if(empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] !=1)
         {
             return show(0,'success','商户地址无法获取数据，或者匹配的地址不精确');

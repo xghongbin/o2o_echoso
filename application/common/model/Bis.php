@@ -24,6 +24,24 @@ class Bis extends BaseModel
         return $res;
     }
 
+    /*
+     *  通过ID获取商家总店信息
+     * */
+    public function getBisIdData($id,$)
+    {
+        $result = [
+            'status'=>$status,
+        ];
+
+        $order = [
+            'id'=>'desc',
+        ];
+        $res = $this->where($result)
+            ->order($order)
+            ->paginate(1);
+        return $res;
+    }
+
     public function getBisUserIsHave($data){
 
         $result = [

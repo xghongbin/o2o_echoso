@@ -32,7 +32,7 @@ class Register extends Controller
         }
 
         //  商户地址通过Map.php获取经纬度
-        $lnglat = \Map::getLngLat($data['address']);
+        $lnglat = \Map::getLngLat($data['address'],0);
 
         if(empty($lnglat) || $lnglat['status'] != 0 || $lnglat['result']['precise'] !=1)
         {
@@ -153,7 +153,7 @@ class Register extends Controller
     {
         if(empty($id) || empty($code))
         {
-            $this->error('非法操作');
+            $this->error('非法操作',url('index/index/index'));
         }
 
         // 验证盐加密

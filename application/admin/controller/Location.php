@@ -3,12 +3,12 @@ namespace app\admin\controller;
 
 use think\Controller;
 use think\cache\Driver;
-class Bis extends Controller
+class Location extends Controller
 {
     protected $obj;
     public function _initialize()
     {
-        $this->obj = model('Bis');
+        $this->obj = model('BisLocation');
     }
 
     public function index()
@@ -18,8 +18,8 @@ class Bis extends Controller
         {
             $this->error('非法操作');
         }
-        $status = input('get.status',1,'intval');
-        $bis = model('Bis')->getBisStatusList($status);
+        $status = input('get.status',0,'intval');
+        $bis = model('BisLocation')->getBisBranchStatusList($status);
 
         return $this->fetch('',[
             'bis'=>$bis,
@@ -27,12 +27,17 @@ class Bis extends Controller
     }
 
     /*
-     * 商户入驻申请
+     * 商户门店分店入驻申请
      * */
     public function apply()
     {
-        $BisData = model('Bis')->getBisStatusList();
+        //  分店信息
+        $BisData = $this->obj->getBisBranchStatusList();
 
+        //  总店信息
+        //$HeadquartersData = model('Bis')->getBisStatusList(['id'=>$BisData['bis_id'],'is_main'=>1]);
+
+        //dump($HeadquartersData);
         return $this->fetch('',[
             'BisData'=>$BisData,
         ]);

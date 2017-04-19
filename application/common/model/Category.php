@@ -114,4 +114,22 @@ class Category extends Model
             ->order($order)
             ->select();
     }
+
+    /*
+     * 删除所有标记为-1的分类，返回删除的个数
+     * */
+    public function delCategoryIsDel()
+    {
+        $result = [
+            'status'=>-1,
+        ];
+        $delNumber = $this->where($result)->count('id');
+        $res = $this->where($result)->delete();
+        if($res > 0){
+            return $delNumber;
+        }else{
+            return false;
+        }
+
+    }
 }

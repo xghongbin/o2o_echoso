@@ -51,7 +51,7 @@ class Bis extends Validate
         ['open_time','require','营业时间必须填写'],
         ['username','require','用户名必须填写'],
         ['password','require|alphaNum|length:8,15','密码必须填写|密码复杂度不够|密码长度不够'],
-        ['status','number|in:-1,0,1','状态必须是数字|状态范围不合法'],
+        ['status','number|in:-1,0,1,2','状态必须是数字|状态范围不合法'],
         ['id','number','ID必须是数字'],
         //['description','length:15,30','商户介绍字数太少'],
         //['content','length:15,30','门店简介字数太少']
@@ -85,16 +85,31 @@ class Bis extends Validate
             'username',
             'password',
         ],
+        // 状态信息字段判断
         'status'=>[
             'id',
             'status',
         ],
+        // 验证商户入驻信息字段判断
         'chuekUserName'=>[
             'name',
             'email',
             'bank_info',
             'bank_name',
             'bank_user',
+        ],
+        // 分店信息字段判断
+        'branchInfo'=>[
+            'name',
+            'city_id',
+            'se_city_id',
+            'logo',
+            'content',
+            'category_id',
+            'address',
+            'tel',
+            'contact',
+            'open_time',
         ],
     ];
 }

@@ -179,10 +179,8 @@ class Category extends Controller
             $this->error($validate->getError());
         }
 
-
         if($date['state']=='del')
         {
-            
             // 数据删除前的校验：一级栏目下含有子栏目不允许删除
             if($date['is_parent'] == '1' && $date['parent_id'] == '0')
             {
@@ -222,5 +220,27 @@ class Category extends Controller
 
     }
 
+    /*
+     *  确认删除->标记为删除的分类
+     * */
+    public function dilition()
+    {
+        if(!request()->isGet())
+        {
+            $this->error('非法操作');
+        }
+
+        $num = $this->obj->delCategoryIsDel();
+        if($num > 0)
+        {
+            return $this->success('删除成功，共计删除'.$num.'个分类');
+        }else if($num == 0){
+            return $this->error('不存在被标记为 "删除" 的分类');
+        }else{
+            return $this->error('删除失败');
+        }
+
+
+    }
 }
 
